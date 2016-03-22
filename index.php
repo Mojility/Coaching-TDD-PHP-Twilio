@@ -1,6 +1,7 @@
 <?php
-require_once("inc/Group.class.php");
-require_once("inc/Dispatcher.class.php");
+require_once("inc/globals.php");
+require_once("inc/Group.php");
+require_once("inc/ResponseBuilder.php");
 
 define("SCRIPT_URL", "http://myserver.com/phones/index.php");
 
@@ -19,5 +20,5 @@ $Digits = $_POST['Digits'];
 //$Digits = "48424";
 
 $group = new Group();
-$dispatcher = new Dispatcher();
-$dispatcher->invoke($group, $From, $Digits);
+$responseBuilder = new ResponseBuilder();
+$responseBuilder->invoke($group, $From, $Digits);
