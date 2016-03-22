@@ -1,6 +1,7 @@
 <?php
 
-require_once("inc/Group.class.php");
+require_once("inc/globals.php");
+require_once("inc/Group.php");
 
 class GroupTest extends PHPUnit_Framework_TestCase {
 

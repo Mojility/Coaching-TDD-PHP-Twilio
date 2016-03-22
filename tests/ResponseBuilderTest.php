@@ -1,6 +1,6 @@
 <?php
 
-require_once("./inc/ResponseBuilder.class.php");
+require_once("./inc/ResponseBuilder.php");
 
 class ResponseWriterTest extends PHPUnit_Framework_TestCase {
 
