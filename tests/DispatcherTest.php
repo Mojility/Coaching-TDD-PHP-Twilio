@@ -12,8 +12,8 @@ class DispatcherTest extends PHPUnit_Framework_TestCase {
         $this->dispatcher = new Dispatcher();
     }
 
-    function testResponseBuilderExists() {
-        $this->assertNotNull($this->dispatcher);
+    function testDispatcherExists() {
+        $this->assertInstanceOf("Dispatcher", $this->dispatcher);
     }
 
     function testEmptyRequestRejectingGroup() {
