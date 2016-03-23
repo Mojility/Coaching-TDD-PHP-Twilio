@@ -20,7 +20,7 @@ class ResponseBuilder {
                 $response .= "</Dial>\n";
                 $response .= "<Say>Sorry, nobody could be reached at this time. Please try again later.</Say>\n";
                 $response .= "</Response>\n";
-                echo $response;
+                return $response;
 
             } else {
 
@@ -34,7 +34,7 @@ class ResponseBuilder {
                         $response .= ' callerId="' . $group->getPhone() . '"';
                         $response .= ">$Digits</Dial>\n";
                         $response .= "</Response>\n";
-                        echo $response;
+                        return $response;
 
                     } else {
 
@@ -42,7 +42,7 @@ class ResponseBuilder {
                         $response .= "<Say>You must provide a valid 10-digit phone number to dial</Say>\n";
                         $response .= "<Redirect>" . SCRIPT_URL . "</Redirect>\n";
                         $response .= "</Response>\n";
-                        echo $response;
+                        return $response;
 
                     }
 
@@ -59,7 +59,7 @@ class ResponseBuilder {
                     $response .= "<Say>Sorry, I didn't get your input.</Say>\n";
                     $response .= "<Redirect>" . SCRIPT_URL . "</Redirect>\n";
                     $response .= "</Response>\n";
-                    echo $response;
+                    return $response;
 
                 }
 
@@ -69,7 +69,7 @@ class ResponseBuilder {
 
             $response = new SimpleXMLElement("<Response/>");
             $response->addChild('Reject')->addAttribute("reason", "busy");
-            echo $response->asXML();
+            return $response->asXML();
 
         }
     }
