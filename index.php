@@ -9,7 +9,8 @@ $From = MEMBER_PHONE;
 
 //$Digits = $_POST['Digits'];
 //$Digits = "6135551212";
-$Digits = "48424";
+//$Digits = "48424";
+$Digits = null;
 
 $group = new Group();
 $dispatcher = new Dispatcher();
