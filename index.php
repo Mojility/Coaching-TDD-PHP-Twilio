@@ -1,7 +1,7 @@
 <?php
 require_once("inc/globals.php");
 require_once("inc/Group.php");
-require_once("inc/ResponseBuilder.php");
+require_once("inc/Dispatcher.php");
 
 $From = $_POST['From'];
 //$From = ADMIN_PHONE;
@@ -12,5 +12,5 @@ $Digits = $_POST['Digits'];
 //$Digits = "48424";
 
 $group = new Group();
-$responseBuilder = new ResponseBuilder();
+$responseBuilder = new Dispatcher();
 echo $responseBuilder->invoke($group, $From, $Digits);

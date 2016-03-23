@@ -1,6 +1,6 @@
 <?php
 
-class ResponseBuilder {
+class Dispatcher {
 
     /**
      * @param $group

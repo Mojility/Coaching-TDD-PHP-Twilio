@@ -1,23 +1,23 @@
 <?php
 
 require_once("./inc/globals.php");
-require_once("./inc/ResponseBuilder.php");
+require_once("./inc/Dispatcher.php");
 
-class ResponseWriterTest extends PHPUnit_Framework_TestCase {
+class DispatcherTest extends PHPUnit_Framework_TestCase {
 
-    protected $responseBuilder = null;
+    protected $dispatcher = null;
 
     function setUp() {
-        $this->responseBuilder = new ResponseBuilder();
+        $this->dispatcher = new Dispatcher();
     }
 
     function testResponseBuilderExists() {
-        $this->assertNotNull($this->responseBuilder);
+        $this->assertNotNull($this->dispatcher);
     }
 
     function testEmptyRequestRejectingGroup() {
         $group = new Group(REJECT_MODE);
-        $response = $this->responseBuilder->invoke($group, null, null);
+        $response = $this->dispatcher->invoke($group, null, null);
         $this->assertXmlStringEqualsXmlString(
             "<Response>
                 <Reject reason='busy'/>
@@ -28,7 +28,7 @@ class ResponseWriterTest extends PHPUnit_Framework_TestCase {
 
     function testEmptyRequestForwardingGroup() {
         $group = new Group(FORWARD_MODE);
-        $response = $this->responseBuilder->invoke($group, null, null);
+        $response = $this->dispatcher->invoke($group, null, null);
         $this->assertXmlStringEqualsXmlString(
             "<Response>
                 <Dial>
@@ -43,7 +43,7 @@ class ResponseWriterTest extends PHPUnit_Framework_TestCase {
 
     function testFromAdminPhoneNoDigits() {
         $group = new Group(FORWARD_MODE);
-        $response = $this->responseBuilder->invoke($group, ADMIN_PHONE, null);
+        $response = $this->dispatcher->invoke($group, ADMIN_PHONE, null);
         $this->assertXmlStringEqualsXmlString(
             "<Response>
                 <Gather action='".SCRIPT_URL."' timeout='2'>
@@ -59,7 +59,7 @@ class ResponseWriterTest extends PHPUnit_Framework_TestCase {
 
     function testFromAdminPhoneInvalidDigits() {
         $group = new Group(FORWARD_MODE);
-        $response = $this->responseBuilder->invoke($group, ADMIN_PHONE, "1234");
+        $response = $this->dispatcher->invoke($group, ADMIN_PHONE, "1234");
         $this->assertXmlStringEqualsXmlString(
             "<Response>
                 <Say>You must provide a valid 10-digit phone number to dial</Say>
@@ -71,7 +71,7 @@ class ResponseWriterTest extends PHPUnit_Framework_TestCase {
 
     function testFromAdminPhoneValidDigits() {
         $group = new Group(FORWARD_MODE);
-        $response = $this->responseBuilder->invoke($group, ADMIN_PHONE, "7055551212");
+        $response = $this->dispatcher->invoke($group, ADMIN_PHONE, "7055551212");
         $this->assertXmlStringEqualsXmlString(
             "<Response>
                 <Dial timeout='30' callerId='+14085551212'>7055551212</Dial>
