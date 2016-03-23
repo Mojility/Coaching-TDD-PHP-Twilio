@@ -1,14 +1,17 @@
 <?php
 
 require_once("./inc/globals.php");
+require_once("./inc/ResponseBuilder.php");
 require_once("./inc/Dispatcher.php");
 
 class DispatcherTest extends PHPUnit_Framework_TestCase {
 
     protected $dispatcher = null;
+    protected $responseBuilder = null;
 
     function setUp() {
-        $this->dispatcher = new Dispatcher();
+        $this->responseBuilder = new ResponseBuilder();
+        $this->dispatcher = new Dispatcher($this->responseBuilder);
     }
 
     function testResponseBuilderExists() {
