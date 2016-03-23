@@ -3,19 +3,11 @@ require_once("inc/globals.php");
 require_once("inc/Group.php");
 require_once("inc/ResponseBuilder.php");
 
-$From = $_POST['From'];
-//$From = ADMIN_PHONE;
-//$From = MEMBER_PHONE;
-
-$Digits = $_POST['Digits'];
-//$Digits = "6135551212";
-//$Digits = "48424";
-
 $group = new Group();
 
 if (FORWARD_MODE == $group->getMode()) {
 
-    if (!$group->isAdministrator($From)) {
+    if (!$group->isAdministrator($_POST['From'])) {
 
         $response = "<Response>\n";
         $response .= "<Dial>\n";
@@ -29,15 +21,15 @@ if (FORWARD_MODE == $group->getMode()) {
 
     } else {
 
-        if ($Digits) {
+        if ($_POST['Digits']) {
 
-            if (10 == strlen($Digits)) {
+            if (10 == strlen($_POST['Digits'])) {
 
                 $response = "<Response>\n";
                 $response .= "<Dial";
                 $response .= ' timeout="30"';
                 $response .= ' callerId="' . $group->getPhone() . '"';
-                $response .= ">$Digits</Dial>\n";
+                $response .= ">". $_POST['Digits'] ."</Dial>\n";
                 $response .= "</Response>\n";
                 echo $response;
 
