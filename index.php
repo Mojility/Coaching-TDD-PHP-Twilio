@@ -2,6 +2,7 @@
 require_once("inc/globals.php");
 require_once("inc/Group.php");
 require_once("inc/ResponseBuilder.php");
+require_once("inc/Dispatcher.php");
 
 //$From = $_POST['From'];
 //$From = ADMIN_PHONE;
@@ -13,24 +14,6 @@ $From = MEMBER_PHONE;
 $Digits = null;
 
 $group = new Group(FORWARD_MODE);
-$builder = new ResponseBuilder();
-
-if (FORWARD_MODE == $group->getMode()) {
-    if (!$group->isAdministrator($From)) {
-        $response = $builder->buildForwardToAdministratorsResponse($group);
-    } else {
-        if ($Digits) {
-            if (10 == strlen($Digits)) {
-                $response = $builder->buildDialOutgoingCallResponse($group, $Digits);
-            } else {
-                $response = $builder->buildInvalidDigitsResponse();
-            }
-        } else {
-            $response = $builder->buildGatherDigitsResponse();
-        }
-    }
-} else {
-    $response = $builder->buildRejectCallResponse();
-}
-
-echo $response;
+$responseBuilder = new ResponseBuilder();
+$builder = new Dispatcher($responseBuilder);
+echo $builder->invoke($group, $From, $Digits);
