@@ -3,8 +3,6 @@ require_once("inc/globals.php");
 require_once("inc/Group.php");
 require_once("inc/ResponseBuilder.php");
 
-define("SCRIPT_URL", "http://myserver.com/phones/index.php");
-
 //$From = $_POST['From'];
 //$From = ADMIN_PHONE;
 $From = MEMBER_PHONE;
