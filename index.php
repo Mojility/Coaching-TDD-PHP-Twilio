@@ -14,5 +14,6 @@ $From = MEMBER_PHONE;
 $Digits = null;
 
 $group = new Group(FORWARD_MODE);
-$builder = new Dispatcher();
+$responseBuilder = new ResponseBuilder();
+$builder = new Dispatcher($responseBuilder);
 echo $builder->invoke($group, $From, $Digits);
