@@ -6,10 +6,12 @@ require_once("./inc/ResponseBuilder.php");
 
 class DispatcherTest extends PHPUnit_Framework_TestCase {
 
+    protected $builder = null;
     protected $dispatcher = null;
 
     function setUp() {
-        $this->dispatcher = new Dispatcher();
+        $this->builder = new ResponseBuilder();
+        $this->dispatcher = new Dispatcher($this->builder);
     }
 
     function testDispatcherExists() {

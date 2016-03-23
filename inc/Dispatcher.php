@@ -2,25 +2,29 @@
 
 class Dispatcher {
 
-    function invoke($group, $From, $Digits) {
-        $builder = new ResponseBuilder();
+    private $builder;
 
+    function __construct(ResponseBuilder $builder) {
+        $this->builder = $builder;
+    }
+
+    function invoke($group, $From, $Digits) {
         if (FORWARD_MODE == $group->getMode()) {
             if (!$group->isAdministrator($From)) {
-                $response = $builder->buildForwardToAdministratorsResponse($group);
+                $response = $this->builder->buildForwardToAdministratorsResponse($group);
             } else {
                 if ($Digits) {
                     if (10 == strlen($Digits)) {
-                        $response = $builder->buildDialOutgoingCallResponse($group, $Digits);
+                        $response = $this->builder->buildDialOutgoingCallResponse($group, $Digits);
                     } else {
-                        $response = $builder->buildInvalidDigitsResponse();
+                        $response = $this->builder->buildInvalidDigitsResponse();
                     }
                 } else {
-                    $response = $builder->buildGatherDigitsResponse();
+                    $response = $this->builder->buildGatherDigitsResponse();
                 }
             }
         } else {
-            $response = $builder->buildRejectCallResponse();
+            $response = $this->builder->buildRejectCallResponse();
         }
 
         return $response;
