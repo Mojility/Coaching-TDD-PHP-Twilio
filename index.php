@@ -12,5 +12,5 @@ $From = MEMBER_PHONE;
 $Digits = "48424";
 
 $group = new Group();
-$responseBuilder = new Dispatcher();
-echo $responseBuilder->invoke($group, $From, $Digits);
+$dispatcher = new Dispatcher();
+echo $dispatcher->invoke($group, $From, $Digits);
